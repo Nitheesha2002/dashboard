@@ -8,7 +8,7 @@ const KPI_ICONS = {
   battery: Battery
 };
 
-export default function KpiCard({ title, value, unit, statusText, icon }) {
+export default function KpiCard({ title, value, unit, statusText, statusSeverity, icon }) {
   const IconComponent = icon ? KPI_ICONS[icon] || null : null;
 
   return (
@@ -21,7 +21,9 @@ export default function KpiCard({ title, value, unit, statusText, icon }) {
         {value} {unit && <span className="kpi-unit">{unit}</span>}
       </div>
       {statusText && (
-        <div className="kpi-status">{statusText}</div>
+        <div className={`kpi-status ${statusSeverity === "critical" ? "kpi-status--critical" : statusSeverity === "warning" ? "kpi-status--warning" : ""}`}>
+          {statusText}
+        </div>
       )}
     </div>
   );

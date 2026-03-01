@@ -172,6 +172,7 @@ export default function Dashboard() {
             value={kpi.value}
             unit={kpi.unit}
             statusText={kpi.statusText}
+            statusSeverity={kpi.statusSeverity}
             icon={kpi.icon}
           />
         ))}

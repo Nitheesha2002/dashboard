@@ -25,11 +25,11 @@ export const alerts = [
 ];
 
 export const bladePitchKpis = [
-  { id: "k1", title: "MAX CURRENT (BLADE 1)", value: "688", unit: "A", statusText: "Immediate Overload / Mechanical Binding!", icon: "lightning" },
-  { id: "k2", title: "HEATSINK TEMP (MAX)", value: "66", unit: "°C", statusText: "Cooling System Failure", icon: "thermometer" },
-  { id: "k3", title: "CURRENT FLUCTUATION (STD DEV)", value: "12.5", unit: "A", statusText: "Electrical Noise / Early Wear", icon: "sine" },
-  { id: "k4", title: "POWER SUPPLY TEMP (AVG)", value: "45", unit: "°C", statusText: "Electrical Noise / Early Wear", icon: "circuit" },
-  { id: "k5", title: "PITCH DRIVE VOLTAGE (MIN)", value: "389", unit: "V", statusText: "Power Quality Issue (Sag)", icon: "battery" }
+  { id: "k1", title: "MAX CURRENT (BLADE 1)", value: "688", unit: "A", statusText: "Immediate Overload / Mechanical Binding!", statusSeverity: "critical", icon: "lightning" },
+  { id: "k2", title: "HEATSINK TEMP (MAX)", value: "66", unit: "°C", statusText: "Cooling System Failure", statusSeverity: "warning", icon: "thermometer" },
+  { id: "k3", title: "CURRENT FLUCTUATION (STD DEV)", value: "12.5", unit: "A", statusText: "Electrical Noise / Early Wear", statusSeverity: "warning", icon: "sine" },
+  { id: "k4", title: "POWER SUPPLY TEMP (AVG)", value: "45", unit: "°C", statusText: "Electrical Noise / Early Wear", statusSeverity: "warning", icon: "circuit" },
+  { id: "k5", title: "PITCH DRIVE VOLTAGE (MIN)", value: "389", unit: "V", statusText: "Power Quality Issue (Sag)", statusSeverity: "critical", icon: "battery" }
 ];
 
 /** Bar chart: Blade-to-blade thermal variance (Mean CV) */
@@ -82,6 +82,7 @@ export const bladePitchWidgets = [
     type: "line",
     title: "MAINT TECH: BLADE 1 CURRENT SPIKE SEVERITY (IMMEDIATE FAULT INDICATION)",
     data: currentSpikeLineData,
+    yAxisLabel: "PDU Temp Gradient (Deg C/min)",
     layout: { x: 4, y: 2, w: 4, h: 5 }
   },
   {

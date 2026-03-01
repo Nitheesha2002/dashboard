@@ -8,24 +8,26 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-export default function LineChartWidget({ data }) {
+export default function LineChartWidget({ data, yAxisLabel }) {
 
   return (
     <div className="chart-inner">
 
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data}>
+        <LineChart data={data || []}>
 
           <CartesianGrid stroke="#334155" />
 
           <XAxis
             dataKey="time"
             stroke="#94a3b8"
+            tick={{ fontSize: 12 }}
           />
 
           <YAxis
             stroke="#94a3b8"
             tick={{ fontSize: 12 }}
+            label={yAxisLabel ? { value: yAxisLabel, angle: -90, position: "insideLeft", fill: "#94a3b8", fontSize: 11 } : undefined}
           />
 
           <Tooltip

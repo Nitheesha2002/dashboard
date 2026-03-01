@@ -356,15 +356,17 @@ body {
   min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .dashboard-toolbar {
   margin-bottom: 8px;
+  flex-shrink: 0;
 }
 
 .dashboard-grid-layout {
   flex: 1;
-  min-height: 200px;
+  min-height: 960px;
 }
 
 .dashboard-placeholder {
@@ -538,8 +540,15 @@ body {
 
 .kpi-status {
   font-size: 11px;
-  color: #f59e0b;
   margin-top: 6px;
+}
+
+.kpi-status--critical {
+  color: #ef4444;
+}
+
+.kpi-status--warning {
+  color: #f59e0b;
 }
 
 .kpi-value {

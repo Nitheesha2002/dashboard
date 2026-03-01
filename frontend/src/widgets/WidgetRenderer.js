@@ -30,7 +30,7 @@ export default function WidgetRenderer({
 
     case "line":
       return (
-        <LineChartWidget data={widget.data || history} />
+        <LineChartWidget data={widget.data || history} yAxisLabel={widget.yAxisLabel} />
       );
 
     case "multiline":
