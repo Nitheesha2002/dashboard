@@ -359,14 +359,32 @@ body {
   overflow: auto;
 }
 
-.dashboard-toolbar {
-  margin-bottom: 8px;
-  flex-shrink: 0;
+.dashboard-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
 }
 
-.dashboard-grid-layout {
+.charts-row {
+  display: flex;
+  gap: 16px;
+  min-height: 280px;
+}
+
+.charts-row--two {
   flex: 1;
-  min-height: 960px;
+}
+
+.charts-row--two .widget-box--fixed {
+  flex: 1;
+  min-width: 0;
+}
+
+.charts-row--full .widget-box--fixed {
+  flex: 1;
+  min-height: 280px;
 }
 
 .dashboard-placeholder {
