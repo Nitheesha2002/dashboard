@@ -16,8 +16,10 @@ export default function WidgetRenderer({
       return (
         <KpiCard
           title={widget.title}
-          value={data[widget.metric] || "--"}
+          value={widget.value != null ? widget.value : (data[widget.metric] ?? "--")}
           unit={widget.unit}
+          statusText={widget.statusText}
+          icon={widget.icon}
         />
       );
 
@@ -28,12 +30,12 @@ export default function WidgetRenderer({
 
     case "line":
       return (
-        <LineChartWidget data={history} />
+        <LineChartWidget data={widget.data || history} />
       );
 
     case "multiline":
       return (
-        <MultiLineChartWidget data={history} />
+        <MultiLineChartWidget data={widget.data || history} series={widget.series} />
       );
 
     case "gauge":

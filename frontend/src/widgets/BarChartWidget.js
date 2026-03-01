@@ -12,21 +12,16 @@ import {
 export default function BarChartWidget({ data }) {
 
   const colors = [
-    "#38bdf8",  // blue
-     "#22c55e",  // green
-      "#a855f7",   // purple
-    "#facc15",  // yellow
-    "#ef4444",  // red
-    "#a855f7"   // purple
+    "#38bdf8",  // blue (Blade 1)
+    "#22d3ee",  // cyan (Blade 2)
+    "#ec4899",  // pink (Blade 3)
+    "#facc15",
+    "#ef4444",
+    "#a855f7"
   ];
 
   return (
     <div className="chart-widget">
-
-      <h4 className="widget-title">
-        DATA ANALYSIS
-      </h4>
-
       <div className="chart-area">
 
         <ResponsiveContainer width="100%" height="100%">
@@ -43,6 +38,7 @@ export default function BarChartWidget({ data }) {
             <YAxis
               stroke="#94a3b8"
               tick={{ fontSize: 12 }}
+              label={{ value: "Mean Component Temp Coeff of Variation", angle: -90, position: "insideLeft", fill: "#94a3b8", fontSize: 11 }}
             />
 
             <Tooltip

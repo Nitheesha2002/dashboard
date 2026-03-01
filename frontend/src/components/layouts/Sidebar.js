@@ -1,111 +1,68 @@
-import { useLocation } from "react-router-dom";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import navigationConfig from "../../config/navigationConfig";
+import { ChevronLeft, ChevronRight, Search, Plane } from "lucide-react";
+import { navigatorTree, alerts } from "../../config/bladePitchConfig";
 
-export default function Sidebar({ collapsed, setCollapsed }) {
-
-  const location = useLocation();
-
-  const module =
-    location.pathname.includes("forecast")
-      ? "forecast"
-      : "monitor";
-
-  const data = navigationConfig[module];
-
+export default function Sidebar({ collapsed, setCollapsed, mobileOpen }) {
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
-
-      {/* TOP NAVIGATOR */}
+    <div className={`sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
       <div className="sidebar-top">
-
         <div className="sidebar-header">
-          {!collapsed && <span>{data.title}</span>}
-
-          <div
+          {!collapsed && (
+            <>
+              <span>NAVIGATOR</span>
+              <button type="button" className="sidebar-search" aria-label="Search">
+                <Search size={14} />
+              </button>
+            </>
+          )}
+          <button
+            type="button"
             className="collapse-icon"
             onClick={() => setCollapsed(!collapsed)}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            {collapsed ? <ChevronRight /> : <ChevronLeft />}
-          </div>
+            {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+          </button>
         </div>
 
-        {/* MENU ITEMS */}
-        {data.items.map((item, index) => {
-          const Icon = item.icon;
-
-          return (
-            <div key={index} className="nav-item">
-              <Icon />
-              {!collapsed && <span>{item.label}</span>}
+        {!collapsed && (
+          <div className="navigator-tree">
+            <div className="navigator-asset">
+              <Plane size={16} className="navigator-asset-icon" />
+              <span>{navigatorTree.label}</span>
             </div>
-          );
-        })}
+            {navigatorTree.children.map((child) => (
+              <div
+                key={child.id}
+                className={`navigator-item ${child.selected ? "selected" : ""} status-${child.status}`}
+              >
+                <span className="navigator-dot" />
+                <span>{child.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* BOTTOM ALERT SECTION */}
       {!collapsed && (
-  <div className="sidebar-bottom">
-
-    <div className="activity-header">
-      <span>ALERTS (3)</span>
-      
-    </div>
-
-    <div className="activity-list">
-
-      <div className="activity-card high">
-        <div className="activity-dot"></div>
-
-        <div>
-          <div className="activity-title">
-            T-80 Bearing Overheating
+        <div className="sidebar-bottom">
+          <div className="activity-header">
+            <span>ALERTS ({alerts.length})</span>
+            <button type="button" className="view-all">VIEW ALL</button>
           </div>
-          <div className="activity-desc">
-            Gear box failure predicted
-          </div>
-          <div className="activity-time">
-            2025-11-23 09:32
+          <div className="activity-list">
+            {alerts.map((alert) => (
+              <div key={alert.id} className={`activity-card ${alert.severity === "critical" ? "high" : "medium"}`}>
+                <span className="activity-dot" />
+                <div>
+                  <div className="activity-title">{alert.title}</div>
+                  <div className="activity-desc">{alert.desc}</div>
+                  <div className="activity-time">{alert.time}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-
-      <div className="activity-card medium">
-        <div className="activity-dot"></div>
-
-        <div>
-          <div className="activity-title">
-            Generator Overload
-          </div>
-          <div className="activity-desc">
-            Load surpassing rated capacity
-          </div>
-          <div className="activity-time">
-            2025-11-23 09:32
-          </div>
-        </div>
-      </div>
-
-      <div className="activity-card low">
-        <div className="activity-dot"></div>
-
-        <div>
-          <div className="activity-title">
-            Oil Pressure Stable
-          </div>
-          <div className="activity-desc">
-            System operating normally
-          </div>
-          <div className="activity-time">
-            2025-11-23 09:15
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-)}
+      )}
     </div>
   );
 }

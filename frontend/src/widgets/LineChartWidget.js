@@ -25,9 +25,17 @@ export default function LineChartWidget({ data }) {
 
           <YAxis
             stroke="#94a3b8"
+            tick={{ fontSize: 12 }}
           />
 
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              background: "#020617",
+              border: "1px solid #334155",
+              borderRadius: "6px",
+              color: "white"
+            }}
+          />
 
           <Line
             type="monotone"
