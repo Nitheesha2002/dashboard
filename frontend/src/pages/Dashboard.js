@@ -17,7 +17,9 @@ import "react-resizable/css/styles.css";
 const getStoredWidgets = () => {
   try {
     const stored = localStorage.getItem("dashboardWidgets");
-    return stored ? JSON.parse(stored) : bladePitchWidgets;
+    if (!stored) return bladePitchWidgets;
+    const parsed = JSON.parse(stored);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : bladePitchWidgets;
   } catch {
     return bladePitchWidgets;
   }
@@ -26,7 +28,9 @@ const getStoredWidgets = () => {
 const getStoredLayout = () => {
   try {
     const stored = localStorage.getItem("dashboardLayout");
-    return stored ? JSON.parse(stored) : bladePitchLayout;
+    if (!stored) return bladePitchLayout;
+    const parsed = JSON.parse(stored);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : bladePitchLayout;
   } catch {
     return bladePitchLayout;
   }

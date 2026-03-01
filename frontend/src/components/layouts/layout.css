@@ -455,6 +455,8 @@ body {
 .chart-widget {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-height: 0;
   height: 100%;
 }
 
@@ -706,6 +708,14 @@ body {
   margin-bottom: 8px;
   color: white;
   flex-shrink: 0;
+}
+
+.widget-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .widget-box .widget-title {
