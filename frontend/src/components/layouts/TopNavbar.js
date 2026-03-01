@@ -15,14 +15,21 @@ const NAV_ITEMS = [
   { path: "/settings", label: "Settings" }
 ];
 
+function isMonitorActive(pathname, path) {
+  if (path === "/monitor") {
+    return pathname === "/" || pathname === "/monitor";
+  }
+  return pathname === path;
+}
+
 export default function TopNavbar({ onMenuClick }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <div className="top-navbar">
+    <header className="top-navbar" role="banner">
       <div className="nav-left">
-        <div className="mobile-menu" onClick={onMenuClick} aria-label="Menu">
+        <div className="mobile-menu" onClick={onMenuClick} aria-label="Open menu">
           <Menu size={20} />
         </div>
         <div
@@ -31,44 +38,51 @@ export default function TopNavbar({ onMenuClick }) {
           onKeyDown={(e) => e.key === "Enter" && navigate("/monitor")}
           role="button"
           tabIndex={0}
+          aria-label="TwinARC home"
         >
-          <FaWind className="logo-icon" />
+          <FaWind className="logo-icon" aria-hidden />
           <span className="logo-text">TwinARC</span>
         </div>
       </div>
 
       <nav className="nav-center" aria-label="Main navigation">
-        {NAV_ITEMS.map(({ path, label }) => (
-          <span
-            key={path}
-            className={location.pathname === path || (path === "/monitor" && (location.pathname === "/" || location.pathname === "/monitor")) ? "nav-item-active" : ""}
-            onClick={() => navigate(path)}
-            onKeyDown={(e) => e.key === "Enter" && navigate(path)}
-            role="button"
-            tabIndex={0}
-          >
-            {label}
-          </span>
-        ))}
+        {NAV_ITEMS.map(({ path, label }) => {
+          const active = isMonitorActive(location.pathname, path);
+          return (
+            <span
+              key={path}
+              className={`nav-link ${active ? "nav-item-active" : ""}`}
+              onClick={() => navigate(path)}
+              onKeyDown={(e) => e.key === "Enter" && navigate(path)}
+              role="button"
+              tabIndex={0}
+              aria-current={active ? "page" : undefined}
+            >
+              {label}
+            </span>
+          );
+        })}
       </nav>
 
       <div className="nav-right">
-        <button type="button" className="nav-action-btn">
-          <Save size={16} />
+        <button type="button" className="nav-action-btn" aria-label="Save Report">
+          <Save size={16} aria-hidden />
           <span>Save Report</span>
         </button>
-        <button type="button" className="nav-action-btn">
-          <Download size={16} />
+        <button type="button" className="nav-action-btn" aria-label="Export to PDF">
+          <Download size={16} aria-hidden />
           <span>Export to PDF</span>
         </button>
-        <button type="button" className="nav-action-btn">
-          <Mail size={16} />
+        <button type="button" className="nav-action-btn" aria-label="Send to Email">
+          <Mail size={16} aria-hidden />
           <span>Send to Email</span>
         </button>
-        <span className="nav-version">V2.00 017/08</span>
-        <Bell size={20} className="nav-icon" aria-hidden />
-        <div className="profile-circle" title="User">G</div>
+        <span className="nav-version" aria-label="Version">V2.00 017/08</span>
+        <button type="button" className="nav-icon-btn" aria-label="Notifications">
+          <Bell size={20} />
+        </button>
+        <div className="profile-circle" title="User" aria-hidden>G</div>
       </div>
-    </div>
+    </header>
   );
 }
